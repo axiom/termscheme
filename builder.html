@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Color scheme builder</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="jscolor/jscolor.js"></script>
+		<script type="text/javascript" src="builder.js"></script>
+		<style type="text/css">
+
+			body {
+				background: #cacaca;
+				color: #555;
+				margin: 50px auto;
+				font-size: 16px;
+				font-family: sans-serif;
+				width: 700px;
+			}
+
+			body > p {
+				line-height: 1.5em;
+			}
+
+			h1 {
+				font-family: serif;
+				text-align: center;
+				font-size: 36pt;
+			}
+
+			form {
+				margin-left: 120px;
+			}
+
+			form p.color {
+				background: #ebebeb;
+				border: 1px solid #e7e7e7;
+				padding: 10px;
+				margin: 5px;
+				width: 180px;
+			}
+
+			form p.left {
+				float: left;
+			}
+
+			form p.right {
+				float: left;
+			}
+
+			label {
+				font-size: 12px;
+				text-transform: capitalize;
+				color: #666;
+				width: 45%;
+			}
+
+			input.color {
+				border: none;
+				padding: 5px 0;
+				text-align: center;
+				text-decoration: underline;
+				border: 1px solid #e7e7e7;
+				width: 85px;
+				font-size: 12px;
+			}
+
+			input.big {
+				color: #555;
+				font-size: large;
+				padding: 0.2em;
+				text-align: center;
+			}
+
+			#terminal {
+				background: white;
+				border: 1px inset #e7e7e7;
+				font-family: monospace;
+				font-size: 12pt;
+				width: 600px;
+				padding: 10px;
+				margin: 20px auto;
+				line-height: 1.4em;
+			}
+
+			.clear {
+				clear: both;
+				height: 0px;
+				width: 0px;
+			}
+
+			span {
+				display: block;
+			}
+
+			form p span {
+				color: #888;
+				display: block;
+				font-size: 11px;
+				font-weight: bold;
+			}
+
+			.color0 {};
+			.color1 {};
+			.color2 {};
+			.color3 {};
+			.color4 {};
+			.color5 {};
+			.color6 {};
+			.color7 {};
+			.color8 {};
+			.color9 {};
+			.color10 {};
+			.color11 {};
+			.color12 {};
+			.color13 {};
+			.color14 {};
+		</style>
+	</head>
+	<body onLoad="builderUpdateColors();">
+
+		<h1>Color scheme builder</h1>
+
+		<div id="terminal">
+			<span class="foreground">Normal text.</span>
+			<span class="color0">color0 (black)</span>
+			<span class="color8">color8 (black)</span>
+			<span class="color1">color1 (red)</span>
+			<span class="color9">color9 (red)</span>
+			<span class="color2">color2 (green)</span>
+			<span class="color10">color10 (green)</span>
+			<span class="color3">color3 (yellow)</span>
+			<span class="color11">color11 (yellow)</span>
+			<span class="color4">color4 (blue)</span>
+			<span class="color12">color12 (blue)</span>
+			<span class="color5">color5 (magenta)</span>
+			<span class="color13">color13 (magenta)</span>
+			<span class="color6">color6 (cyan)</span>
+			<span class="color14">color14 (cyan)</span>
+			<span class="color7">color7 (white)</span>
+			<span class="color15">color15 (white)</span>
+		</div>
+
+		<p>
+			Choose colors below, the color names are sugestions. You can
+			pick whatever color you like. But it might end up looking
+			strange if you go way off the color names.
+		</p>
+
+		<form onSubmit="return false;">
+			<p>
+				<label style="display: block;" for="schemename">Scheme name</label>
+				<input class="big" id="schemename" value="dark"/>
+				<input class="big" type="submit" value="Update" onClick="builderUpdateColors(); return false;" />
+			</p>
+
+			<p class="color left">
+				<span class="color_name">foreground</span>
+				<input id="background" class="color" value="232323"/>
+			</p>
+
+			<p class="color right">
+				<span class="color_name">foreground</span>
+				<input id="foreground" class="color" value="ffffec"/>
+			</p>
+
+			<div class="clear"></div>
+
+			<p class="color left">
+				<span class="color_name">black</span>
+				<input class="color" id="color0" value="4b4f51"/>
+				<input class="color" id="color8" value="757575"/>
+			</p>
+
+			<p class="color right">
+				<span class="color_name">white</span>
+				<input class="color" id="color7" value="fafafa"/>
+				<input class="color" id="color15" value="e0e0e0"/>
+			</p>
+
+			<div class="clear"></div>
+
+			<p class="color left">
+				<span class="color_name">green</span>
+				<input class="color" id="color2" value="79c487"/>
+				<input class="color" id="color10" value="8fca0c"/>
+			</p>
+
+			<p class="color right">
+				<span class="color_name">yellow</span>
+				<input class="color" id="color3" value="f4ce18"/>
+				<input class="color" id="color11" value="fa850e"/>
+			</p>
+
+			<div class="clear"></div>
+
+			<p class="color left">
+				<span class="color_name">blue</span>
+				<input class="color" id="color4" value="5688ee"/>
+				<input class="color" id="color12" value="4348fd"/>
+			</p>
+
+			<p class="color right">
+				<span class="color_name">magenta</span>
+				<input class="color" id="color5" value="a067d6"/>
+				<input class="color" id="color13" value="d36ee8"/>
+			</p>
+
+			<div class="clear"></div>
+
+			<p class="color left">
+				<span class="color_name">cyan</span>
+				<input class="color" id="color6" value="79cad6"/>
+				<input class="color" id="color14" value="44d3ff"/>
+			</p>
+
+			<p class="color right">
+				<span class="color_name">red</span>
+				<input class="color" id="color1" value="ff5e4e"/>
+				<input class="color" id="color9" value="ef1a37"/>
+			</p>
+
+			<div class="clear"></div>
+
+		</form>
+	</body>
+</html>
