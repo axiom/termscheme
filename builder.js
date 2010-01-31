@@ -20,7 +20,7 @@ function builderDownloadColors()
 	var xres;
 
 	xres  = "! Terminal color scheme '" + name + "' built at\n";
-	xres += "! http://antiklimax.se/projects/colorschemebuilder/" + '\n';
+	xres += "! http://antiklimax.se/projects/termscheme/" + '\n';
 
 	xres += name + ".background: " + $("#background").val() + '\n';
 	xres += name + ".foreground: " + $("#foreground").val() + '\n';
