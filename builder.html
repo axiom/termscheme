@@ -75,13 +75,6 @@
 				padding: 10px;
 				margin: 5px;
 				width: 180px;
-			}
-
-			form p.left {
-				float: left;
-			}
-
-			form p.right {
 				float: left;
 			}
 
@@ -164,6 +157,8 @@
 			<span class="foreground">Normal text.</span>
 			<span class="color0">color0 (black)</span>
 			<span class="color8">color8 (black)</span>
+			<span class="color7">color7 (white)</span>
+			<span class="color15">color15 (white)</span>
 			<span class="color1">color1 (red)</span>
 			<span class="color9">color9 (red)</span>
 			<span class="color2">color2 (green)</span>
@@ -176,8 +171,6 @@
 			<span class="color13">color13 (magenta)</span>
 			<span class="color6">color6 (cyan)</span>
 			<span class="color14">color14 (cyan)</span>
-			<span class="color7">color7 (white)</span>
-			<span class="color15">color15 (white)</span>
 		</div>
 
 		<p>
@@ -192,25 +185,25 @@
 
 		<form onsubmit="return false;" action="" method="post">
 
-			<p class="color left">
+			<p class="color">
 				<span>background</span>
 				<input id="background" class="color" value="#232323"/>
 			</p>
 
-			<p class="color right">
+			<p class="color">
 				<span>foreground</span>
 				<input id="foreground" class="color" value="#ffffec"/>
 			</p>
 
 			<div class="clear"></div>
 
-			<p class="color left">
+			<p class="color">
 				<span>black</span>
 				<input class="color" id="color0" value="#4b4f51"/>
 				<input class="color" id="color8" value="#757575"/>
 			</p>
 
-			<p class="color right">
+			<p class="color">
 				<span>white</span>
 				<input class="color" id="color7" value="#fafafa"/>
 				<input class="color" id="color15" value="#e0e0e0"/>
@@ -218,44 +211,44 @@
 
 			<div class="clear"></div>
 
-			<p class="color left">
+			<p class="color">
+				<span>red</span>
+				<input class="color" id="color1" value="#ff5e4e"/>
+				<input class="color" id="color9" value="#ef1a37"/>
+			</p>
+
+			<p class="color">
 				<span>green</span>
 				<input class="color" id="color2" value="#79c487"/>
 				<input class="color" id="color10" value="#8fca0c"/>
 			</p>
 
-			<p class="color right">
+			<div class="clear"></div>
+
+			<p class="color">
 				<span>yellow</span>
 				<input class="color" id="color3" value="#f4ce18"/>
 				<input class="color" id="color11" value="#fa850e"/>
 			</p>
 
-			<div class="clear"></div>
-
-			<p class="color left">
+			<p class="color">
 				<span>blue</span>
 				<input class="color" id="color4" value="#5688ee"/>
 				<input class="color" id="color12" value="#4348fd"/>
 			</p>
 
-			<p class="color right">
+			<div class="clear"></div>
+
+			<p class="color">
 				<span>magenta</span>
 				<input class="color" id="color5" value="#a067d6"/>
 				<input class="color" id="color13" value="#d36ee8"/>
 			</p>
 
-			<div class="clear"></div>
-
-			<p class="color left">
+			<p class="color">
 				<span>cyan</span>
 				<input class="color" id="color6" value="#79cad6"/>
 				<input class="color" id="color14" value="#44d3ff"/>
-			</p>
-
-			<p class="color right">
-				<span>red</span>
-				<input class="color" id="color1" value="#ff5e4e"/>
-				<input class="color" id="color9" value="#ef1a37"/>
 			</p>
 
 			<div class="clear"></div>
@@ -274,7 +267,7 @@
 		<div class="clear"></div>
 
 		<div>
-			<textarea rows="21" cols="60" id="output"></textarea>
+			<textarea rows="20" cols="60" id="output"></textarea>
 		</div>
 
 		<h2>What is this?</h2>

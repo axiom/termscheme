@@ -29,6 +29,9 @@ function builderDownloadColors()
 		xres += name + ".color" + i + ": " + $("#color" + i).val() + '\n';
 	}
 
+	// Shave off that last line feed character.
+	xres = xres.substr(0, xres.length - 1);
+
 	var out = $("#output");
 	out.val(xres);
 	out.show();
