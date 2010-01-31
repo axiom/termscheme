@@ -143,7 +143,7 @@
 			}
 		</style>
 	</head>
-	<body onLoad="builderInit(); builderUpdateColors();">
+	<body onload="builderInit(); builderUpdateColors();">
 
 		<h1>Color scheme builder</h1>
 
@@ -183,7 +183,7 @@
 			used for bold (or bright) text.
 		</p>
 
-		<form onSubmit="return false;">
+		<form onsubmit="return false;" action="" method="post">
 
 			<p class="color left">
 				<span class="color_name">background</span>
@@ -256,8 +256,8 @@
 			<p>
 				<label style="display: block;" for="schemename">Scheme name</label>
 				<input class="big" id="schemename" value="dark"/>
-				<input class="big" type="submit" value="Update" onClick="builderUpdateColors(); return false;" />
-				<input class="big" type="button" value="Download" onClick="builderUpdateColors(); builderDownloadColors();" />
+				<input class="big" type="submit" value="Update" onclick="builderUpdateColors(); return false;" />
+				<input class="big" type="button" value="Download" onclick="builderUpdateColors(); builderDownloadColors();" />
 			</p>
 
 		</form>
@@ -272,7 +272,9 @@
 			this into your <tt>X Resource file</tt>, or whatever.
 		</p>
 
-		<textarea rows="21" cols="60" id="output"></textarea>
+		<div>
+			<textarea rows="21" cols="60" id="output"></textarea>
+		</div>
 
 		<p id="footer">
 			Thanks to <a href="http://jquery.com">jQuery</a> and <a
