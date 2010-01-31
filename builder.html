@@ -4,6 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
 		<title>Color scheme builder</title>
+
+		<link rel="home" title="antiklimax.se" href="http://antiklimax.se"/>
+		<link rev="made" title="Johannes Martinsson" href="http://antiklimax.se/me"/>
+		<meta name="description" content="Build a color scheme for your terminal. Select colors, see result and download X resource code." />
+		<meta name="keywords" content="terminal, color, rxvt, urxvt, x, x resource, color scheme, colorscheme, generator, builder" />
+		<meta name="date" content="2010-01-31" />
+		<meta name="copyright" content="Johannes Martinsson" />
+		<meta name="author" content="Johannes Martinsson" />
+
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
 		<script type="text/javascript" src="farbtastic/farbtastic.js"></script>
 		<script type="text/javascript" src="builder.js"></script>
@@ -33,6 +42,15 @@
 
 			body > p {
 				line-height: 1.5em;
+			}
+
+			p#footer {
+				border-top: 1px solid #e7e7e7;
+				padding: 10px;
+				margin: 50px 0 0 0;
+				font-size: 10px;
+				color: #777;
+				text-align: center;
 			}
 
 			h1 {
@@ -255,5 +273,11 @@
 		</p>
 
 		<textarea rows="21" cols="60" id="output"></textarea>
+
+		<p id="footer">
+			Thanks to <a href="http://jquery.com">jQuery</a> and <a
+				href="http://acko.net/dev/farbtastic">Farbtastic</a> for
+			making this easy.
+		</p>
 	</body>
 </html>
