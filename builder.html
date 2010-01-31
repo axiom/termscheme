@@ -5,9 +5,22 @@
 	<head>
 		<title>Color scheme builder</title>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
-		<script type="text/javascript" src="jscolor/jscolor.js"></script>
+		<script type="text/javascript" src="farbtastic/farbtastic.js"></script>
 		<script type="text/javascript" src="builder.js"></script>
+		<link rel="stylesheet" href="farbtastic/farbtastic.css" type="text/css" />
 		<style type="text/css">
+
+			.colorwell {
+				border: 2px solid #fff;
+				width: 60em;
+				text-align: center;
+				cursor: pointer;
+			}
+
+			body .colorwell-selected {
+				border: 2px solid #000;
+				font-weight: bold;
+			}
 
 			body {
 				background: #cacaca;
@@ -29,7 +42,13 @@
 			}
 
 			form {
-				margin-left: 120px;
+				float: left;
+				margin-left: 40px;
+			}
+
+			#picker {
+				margin: 100px 0px 20px 20px;
+				float: left;
 			}
 
 			form p.color {
@@ -110,6 +129,12 @@
 
 		<h1>Color scheme builder</h1>
 
+		<p>
+			Choose colors below, the color names are sugestions. You can
+			pick whatever color you like. But it might end up looking
+			strange if you go way off the color names.
+		</p>
+
 		<div id="terminal">
 			<span class="foreground">Normal text.</span>
 			<span class="color0">color0 (black)</span>
@@ -131,12 +156,85 @@
 		</div>
 
 		<p>
-			Choose colors below, the color names are sugestions. You can
-			pick whatever color you like. But it might end up looking
-			strange if you go way off the color names.
+			I recommend tabbing through the colors to select them, so that you
+			can focus on the color wheel.
+		</p>
+
+		<p>
+			The left color is used for normal text while the right color is
+			used for bold (or bright) text.
 		</p>
 
 		<form onSubmit="return false;">
+
+			<p class="color left">
+				<span class="color_name">background</span>
+				<input id="background" class="color" value="#232323"/>
+			</p>
+
+			<p class="color right">
+				<span class="color_name">foreground</span>
+				<input id="foreground" class="color" value="#ffffec"/>
+			</p>
+
+			<div class="clear"></div>
+
+			<p class="color left">
+				<span class="color_name">black</span>
+				<input class="color" id="color0" value="#4b4f51"/>
+				<input class="color" id="color8" value="#757575"/>
+			</p>
+
+			<p class="color right">
+				<span class="color_name">white</span>
+				<input class="color" id="color7" value="#fafafa"/>
+				<input class="color" id="color15" value="#e0e0e0"/>
+			</p>
+
+			<div class="clear"></div>
+
+			<p class="color left">
+				<span class="color_name">green</span>
+				<input class="color" id="color2" value="#79c487"/>
+				<input class="color" id="color10" value="#8fca0c"/>
+			</p>
+
+			<p class="color right">
+				<span class="color_name">yellow</span>
+				<input class="color" id="color3" value="#f4ce18"/>
+				<input class="color" id="color11" value="#fa850e"/>
+			</p>
+
+			<div class="clear"></div>
+
+			<p class="color left">
+				<span class="color_name">blue</span>
+				<input class="color" id="color4" value="#5688ee"/>
+				<input class="color" id="color12" value="#4348fd"/>
+			</p>
+
+			<p class="color right">
+				<span class="color_name">magenta</span>
+				<input class="color" id="color5" value="#a067d6"/>
+				<input class="color" id="color13" value="#d36ee8"/>
+			</p>
+
+			<div class="clear"></div>
+
+			<p class="color left">
+				<span class="color_name">cyan</span>
+				<input class="color" id="color6" value="#79cad6"/>
+				<input class="color" id="color14" value="#44d3ff"/>
+			</p>
+
+			<p class="color right">
+				<span class="color_name">red</span>
+				<input class="color" id="color1" value="#ff5e4e"/>
+				<input class="color" id="color9" value="#ef1a37"/>
+			</p>
+
+			<div class="clear"></div>
+
 			<p>
 				<label style="display: block;" for="schemename">Scheme name</label>
 				<input class="big" id="schemename" value="dark"/>
@@ -144,75 +242,11 @@
 				<input class="big" type="button" value="Download" onClick="builderUpdateColors(); builderDownloadColors();" />
 			</p>
 
-			<p class="color left">
-				<span class="color_name">foreground</span>
-				<input id="background" class="color" value="232323"/>
-			</p>
-
-			<p class="color right">
-				<span class="color_name">foreground</span>
-				<input id="foreground" class="color" value="ffffec"/>
-			</p>
-
-			<div class="clear"></div>
-
-			<p class="color left">
-				<span class="color_name">black</span>
-				<input class="color" id="color0" value="4b4f51"/>
-				<input class="color" id="color8" value="757575"/>
-			</p>
-
-			<p class="color right">
-				<span class="color_name">white</span>
-				<input class="color" id="color7" value="fafafa"/>
-				<input class="color" id="color15" value="e0e0e0"/>
-			</p>
-
-			<div class="clear"></div>
-
-			<p class="color left">
-				<span class="color_name">green</span>
-				<input class="color" id="color2" value="79c487"/>
-				<input class="color" id="color10" value="8fca0c"/>
-			</p>
-
-			<p class="color right">
-				<span class="color_name">yellow</span>
-				<input class="color" id="color3" value="f4ce18"/>
-				<input class="color" id="color11" value="fa850e"/>
-			</p>
-
-			<div class="clear"></div>
-
-			<p class="color left">
-				<span class="color_name">blue</span>
-				<input class="color" id="color4" value="5688ee"/>
-				<input class="color" id="color12" value="4348fd"/>
-			</p>
-
-			<p class="color right">
-				<span class="color_name">magenta</span>
-				<input class="color" id="color5" value="a067d6"/>
-				<input class="color" id="color13" value="d36ee8"/>
-			</p>
-
-			<div class="clear"></div>
-
-			<p class="color left">
-				<span class="color_name">cyan</span>
-				<input class="color" id="color6" value="79cad6"/>
-				<input class="color" id="color14" value="44d3ff"/>
-			</p>
-
-			<p class="color right">
-				<span class="color_name">red</span>
-				<input class="color" id="color1" value="ff5e4e"/>
-				<input class="color" id="color9" value="ef1a37"/>
-			</p>
-
-			<div class="clear"></div>
-
 		</form>
+
+		<div id="picker" style="float: right;"></div>
+
+		<div class="clear"></div>
 
 		<p>
 			When you have selected pretty colors press the "Download" button.

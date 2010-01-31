@@ -6,11 +6,11 @@ function builderInit()
 function builderUpdateColors()
 {
 	$("#output").hide();
-	$("#terminal").css("background", "#" + $("#background").val());
-	$("#terminal").css("color", "#" + $("#foreground").val());
+	$("#terminal").css("background", $("#background").val());
+	$("#terminal").css("color", $("#foreground").val());
 
 	for (var i = 0; i < 16; i++) {
-		$(".color" + i).css("color", "#" + $("#color" + i).val());
+		$(".color" + i).css("color", $("#color" + i).val());
 	}
 };
 
@@ -22,11 +22,11 @@ function builderDownloadColors()
 	xres  = "! Terminal color scheme '" + name + "' built at\n";
 	xres += "! http://antiklimax.se/projects/colorschemebuilder/" + '\n';
 
-	xres += name + ".background: #" + $("#background").val() + '\n';
-	xres += name + ".foreground: #" + $("#foreground").val() + '\n';
+	xres += name + ".background: " + $("#background").val() + '\n';
+	xres += name + ".foreground: " + $("#foreground").val() + '\n';
 
 	for (var i = 0; i < 16; i++) {
-		xres += name + ".color" + i + ": #" + $("#color" + i).val() + '\n';
+		xres += name + ".color" + i + ": " + $("#color" + i).val() + '\n';
 	}
 
 	var out = $("#output");
@@ -34,3 +34,19 @@ function builderDownloadColors()
 	out.show();
 	out.focus().select();
 };
+
+$(document).ready(function() {
+	var f = $.farbtastic('#picker');
+	var p = $('#picker');
+	var selected;
+
+	$('input.color').each(function () { f.linkTo(this); }).focus(function() {
+		if (selected) {
+			$(selected).removeClass('colorwell-selected');
+			builderUpdateColors();
+		}
+
+		f.linkTo(this);
+		$(selected = this).addClass('colorwell-selected');
+	});
+});
