@@ -45,11 +45,11 @@ $(document).ready(function() {
 
 	$('input.color').each(function () { f.linkTo(this); }).focus(function() {
 		if (selected) {
-			$(selected).removeClass('colorwell-selected');
+			$(selected).removeClass('color-selected');
 			builderUpdateColors();
 		}
 
 		f.linkTo(this);
-		$(selected = this).addClass('colorwell-selected');
+		$(selected = this).addClass('color-selected');
 	});
 });
