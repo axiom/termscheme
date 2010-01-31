@@ -135,6 +135,10 @@
 				display: block;
 			}
 
+			p.small {
+				font-size: 11px;
+			}
+
 			form p span {
 				color: #888;
 				display: block;
@@ -148,7 +152,7 @@
 		<h1>Color scheme builder</h1>
 
 		<p>
-			Choose colors below, the color names are sugestions. You can
+			Choose colors below, the color names are suggestions. You can
 			pick whatever color you like. But it might end up looking
 			strange if you go way off the color names.
 		</p>
@@ -174,37 +178,37 @@
 		</div>
 
 		<p>
-			I recommend tabbing through the colors to select them, so that you
-			can focus on the color wheel.
-		</p>
-
-		<p>
 			The left color is used for normal text while the right color is
 			used for bold (or bright) text.
+		</p>
+
+		<p class="small">
+			I recommend tabbing through the colors to select them, so that you
+			can focus on the color wheel.
 		</p>
 
 		<form onsubmit="return false;" action="" method="post">
 
 			<p class="color left">
-				<span class="color_name">background</span>
+				<span>background</span>
 				<input id="background" class="color" value="#232323"/>
 			</p>
 
 			<p class="color right">
-				<span class="color_name">foreground</span>
+				<span>foreground</span>
 				<input id="foreground" class="color" value="#ffffec"/>
 			</p>
 
 			<div class="clear"></div>
 
 			<p class="color left">
-				<span class="color_name">black</span>
+				<span>black</span>
 				<input class="color" id="color0" value="#4b4f51"/>
 				<input class="color" id="color8" value="#757575"/>
 			</p>
 
 			<p class="color right">
-				<span class="color_name">white</span>
+				<span>white</span>
 				<input class="color" id="color7" value="#fafafa"/>
 				<input class="color" id="color15" value="#e0e0e0"/>
 			</p>
@@ -212,13 +216,13 @@
 			<div class="clear"></div>
 
 			<p class="color left">
-				<span class="color_name">green</span>
+				<span>green</span>
 				<input class="color" id="color2" value="#79c487"/>
 				<input class="color" id="color10" value="#8fca0c"/>
 			</p>
 
 			<p class="color right">
-				<span class="color_name">yellow</span>
+				<span>yellow</span>
 				<input class="color" id="color3" value="#f4ce18"/>
 				<input class="color" id="color11" value="#fa850e"/>
 			</p>
@@ -226,13 +230,13 @@
 			<div class="clear"></div>
 
 			<p class="color left">
-				<span class="color_name">blue</span>
+				<span>blue</span>
 				<input class="color" id="color4" value="#5688ee"/>
 				<input class="color" id="color12" value="#4348fd"/>
 			</p>
 
 			<p class="color right">
-				<span class="color_name">magenta</span>
+				<span>magenta</span>
 				<input class="color" id="color5" value="#a067d6"/>
 				<input class="color" id="color13" value="#d36ee8"/>
 			</p>
@@ -240,13 +244,13 @@
 			<div class="clear"></div>
 
 			<p class="color left">
-				<span class="color_name">cyan</span>
+				<span>cyan</span>
 				<input class="color" id="color6" value="#79cad6"/>
 				<input class="color" id="color14" value="#44d3ff"/>
 			</p>
 
 			<p class="color right">
-				<span class="color_name">red</span>
+				<span>red</span>
 				<input class="color" id="color1" value="#ff5e4e"/>
 				<input class="color" id="color9" value="#ef1a37"/>
 			</p>
@@ -266,15 +270,24 @@
 
 		<div class="clear"></div>
 
-		<p>
-			When you have selected pretty colors press the "Download" button.
-			Then copy the code that appears in the textarea at below. Paste
-			this into your <tt>X Resource file</tt>, or whatever.
-		</p>
-
 		<div>
 			<textarea rows="21" cols="60" id="output"></textarea>
 		</div>
+
+		<h2>What is this?</h2>
+
+		<p>
+			If you use a terminal emulator under the <tt>X Window System</tt>
+			this site will help you build a color scheme for the terminal.
+		</p>
+
+		<p>
+			Download the X resource string, and save it in a file
+			(<tt>~/.Xresources</tt>). Then load that resource into the
+			resource database (<tt>xrdb -load ~/.Xresource</tt>) and start
+			your favorite terminal emulator like so: <code>urxvtc -name weird</code>.
+			(That is if your color scheme is named <em>weird</em>.)
+		</p>
 
 		<p id="footer">
 			Thanks to <a href="http://jquery.com">jQuery</a> and <a
