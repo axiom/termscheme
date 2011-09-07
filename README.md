@@ -5,4 +5,4 @@ string.
 
 ## Example
 
-[http://antiklimax.se/projects/termscheme/](http://antiklimax.se/projects/termscheme/)
+[http://termscheme.eu](http://termscheme.eu)
