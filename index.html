@@ -1,290 +1,377 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!doctype html>
+<html lang="en">
 	<head>
-		<title>Color scheme builder</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Terminal color scheme builder</title>
+		<meta name="description" content="Build a color scheme for your terminal. Preview it and download an X resources file.">
+		<meta name="author" content="Johannes Martinsson">
+		<link rel="home" title="antiklimax.se" href="https://antiklimax.se">
+		<link rel="author" title="Johannes Martinsson" href="https://antiklimax.se/me">
+		<script src="builder.js" defer></script>
+		<style>
+			:root {
+				color-scheme: light;
+				font-family: system-ui, sans-serif;
+				font-synthesis: none;
+				text-rendering: optimizeLegibility;
+			}
 
-		<link rel="home" title="antiklimax.se" href="https://antiklimax.se"/>
-		<link rev="made" title="Johannes Martinsson" href="https://antiklimax.se/me"/>
-		<meta name="description" content="Build a color scheme for your terminal. Select colors, see the result and download a X resource code." />
-		<meta name="keywords" content="terminal, color, rxvt, urxvt, x, x resource, x defaults, xdefaults, color scheme, colorscheme, generator, builder" />
-		<meta name="date" content="2010-01-31" />
-		<meta name="copyright" content="Johannes Martinsson" />
-		<meta name="author" content="Johannes Martinsson" />
-
-		<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-		<script type="text/javascript" src="farbtastic/farbtastic.js"></script>
-		<script type="text/javascript" src="builder.js"></script>
-		<link rel="stylesheet" href="farbtastic/farbtastic.css" type="text/css" />
-		<style type="text/css">
+			* {
+				box-sizing: border-box;
+			}
 
 			body {
+				margin: 0;
+				padding: 2rem 1rem;
 				background: #cacaca;
 				color: #555;
-				margin: 50px auto;
-				font-size: 16px;
-				font-family: sans-serif;
-				width: 700px;
+				font-size: 1rem;
 			}
 
-			body > p {
-				line-height: 1.5em;
+			main {
+				width: min(100%, 900px);
+				margin: 0 auto;
 			}
 
-			p#footer {
-				border-top: 1px solid #e7e7e7;
-				padding: 10px;
-				margin: 50px 0 0 0;
-				font-size: 10px;
-				color: #777;
-				text-align: center;
+			h1, h2 {
+				color: #333;
 			}
 
 			h1 {
-				font-family: serif;
+				margin: 0 0 1.5rem;
+				font-family: Georgia, serif;
+				font-size: clamp(2rem, 7vw, 2.75rem);
 				text-align: center;
-				font-size: 36pt;
 			}
 
-			form {
-				float: left;
-				margin-left: 40px;
+			p {
+				line-height: 1.55;
 			}
 
-			#picker {
-				margin: 100px 0px 20px 20px;
-				float: left;
+			.terminal {
+				margin: 1.5rem 0;
+				padding: 1rem;
+				border: 1px inset #e7e7e7;
+				border-radius: 3px;
+				background: #fff;
+				font-family: "Envy Code R", "SFMono-Regular", Consolas, monospace;
+				font-size: 0.9rem;
+				line-height: 1.5;
+				overflow-wrap: anywhere;
 			}
 
-			form p.color {
+			.terminal span {
+				display: block;
+			}
+
+			.note {
+				font-size: 0.875rem;
+			}
+
+			.color-section {
+				margin: 2rem 0;
+			}
+
+			.color-section h2,
+			.output-section h2,
+			.about h2 {
+				font-size: 1.35rem;
+			}
+
+			.special-colors,
+			.palette-grid {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 0.75rem;
+			}
+
+			.color-group {
+				min-width: 0;
+				margin: 0;
+				padding: 0.75rem;
+				border: 1px solid #e7e7e7;
+				border-radius: 4px;
 				background: #ebebeb;
-				border: 1px solid #e7e7e7;
-				padding: 10px;
-				margin: 5px;
-				width: 180px;
-				float: left;
 			}
 
-			label {
-				font-size: 12px;
+			.color-group h3 {
+				margin: 0 0 0.6rem;
+				font-size: 1rem;
+				font-weight: 600;
 				text-transform: capitalize;
-				color: #666;
-				width: 45%;
 			}
 
-			input.color {
-				border: none;
-				padding: 5px 0;
-				text-align: center;
-				border: 1px solid #e7e7e7;
-				width: 85px;
-				font-size: 12px;
+			.color-control {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 0.4rem;
+				padding: 0.35rem 0;
+				font-size: 0.8rem;
+			}
+
+			.color-control + .color-control {
+				border-top: 1px solid #ddd;
+			}
+
+			.color-values {
+				display: flex;
+				align-items: center;
+				gap: 0.4rem;
+			}
+
+			input[type="color"] {
+				width: 2.5rem;
+				height: 2rem;
+				padding: 2px;
+				border: 1px solid #bbb;
+				border-radius: 3px;
+				background: #fff;
 				cursor: pointer;
 			}
 
-			input.color-selected {
-				font-weight: bold;
-				border-color: #181818;
+			input[type="text"],
+			textarea {
+				border: 1px solid #bbb;
+				border-radius: 3px;
+				background: #fff;
+				color: #333;
+				font: inherit;
 			}
 
-			input.big {
-				color: #555;
-				font-size: large;
-				padding: 0.2em;
+			.hex-value {
+				width: 6.8rem;
+				padding: 0.4rem;
+				font-family: "SFMono-Regular", Consolas, monospace !important;
+				font-size: 0.8rem !important;
+			}
+
+			input[aria-invalid="true"] {
+				border-color: #b42318;
+				outline-color: #b42318;
+			}
+
+			.scheme-controls {
+				display: flex;
+				align-items: end;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin: 1.25rem 0;
+			}
+
+			.scheme-name {
+				display: grid;
+				gap: 0.35rem;
+				font-size: 0.9rem;
+			}
+
+			.scheme-name input {
+				width: min(18rem, 70vw);
+				padding: 0.55rem;
+			}
+
+			button {
+				min-height: 2.5rem;
+				padding: 0.5rem 0.9rem;
+				border: 1px solid #555;
+				border-radius: 3px;
+				background: #555;
+				color: #fff;
+				font: inherit;
+				cursor: pointer;
+			}
+
+			button:hover {
+				background: #333;
+			}
+
+			:focus-visible {
+				outline: 3px solid #1769aa;
+				outline-offset: 2px;
+			}
+
+			#output {
+				display: block;
+				width: 100%;
+				min-height: 22rem;
+				margin: 0.75rem 0 2rem;
+				padding: 0.75rem;
+				font-family: "SFMono-Regular", Consolas, monospace;
+				font-size: 0.875rem;
+				line-height: 1.5;
+				resize: vertical;
+			}
+
+			footer {
+				margin-top: 3rem;
+				padding: 1rem;
+				border-top: 1px solid #e7e7e7;
+				color: #777;
+				font-size: 0.8rem;
 				text-align: center;
 			}
 
-			textarea {
-				font-family: "Envy Code R", monospace;
-				border: none;
-				margin: 20px auto;
-			}
+			@media (max-width: 560px) {
+				body {
+					padding: 1.25rem 0.75rem;
+				}
 
-			#terminal {
-				background: white;
-				border: 1px inset #e7e7e7;
-				font-family: "Envy Code R", monospace;
-				font-size: 10pt;
-				width: 600px;
-				padding: 10px;
-				margin: 20px auto;
-				line-height: 1.4em;
-			}
+				.special-colors,
+				.palette-grid {
+					grid-template-columns: 1fr;
+				}
 
-			.clear {
-				clear: both;
-				height: 0px;
-				width: 0px;
-			}
+				.color-group {
+					padding: 0.75rem 1rem;
+				}
 
-			span {
-				display: block;
-			}
-
-			p.small {
-				font-size: 11px;
-			}
-
-			form p span {
-				color: #888;
-				display: block;
-				font-size: 11px;
-				font-weight: bold;
-			}
-
-			.color8, .color9, .color10, .color11, .color12, .color13, .color14, .color15 {
-				font-weight: bold;
+				.color-control {
+					font-size: 0.9rem;
+				}
 			}
 		</style>
 	</head>
-	<body onload="builderInit(); builderUpdateColors();">
+	<body>
+		<main>
+			<header>
+				<h1>Terminal color scheme builder</h1>
+				<p>
+					Choose colors below, the color names are suggestions. You can
+					pick whatever color you like, though going far from the names
+					may look unexpected.
+				</p>
+			</header>
 
-		<h1>Color scheme builder</h1>
+			<section aria-labelledby="preview-heading">
+				<h2 id="preview-heading">Live preview</h2>
+				<div class="terminal" id="terminal" aria-label="Preview of the terminal color scheme">
+					<span class="foreground">Normal text.</span>
+					<span class="color0">color0 (black)</span>
+					<span class="color8">color8 (black)</span>
+					<span class="color7">color7 (white)</span>
+					<span class="color15">color15 (white)</span>
+					<span class="color1">color1 (red)</span>
+					<span class="color9">color9 (red)</span>
+					<span class="color2">color2 (green)</span>
+					<span class="color10">color10 (green)</span>
+					<span class="color3">color3 (yellow)</span>
+					<span class="color11">color11 (yellow)</span>
+					<span class="color4">color4 (blue)</span>
+					<span class="color12">color12 (blue)</span>
+					<span class="color5">color5 (magenta)</span>
+					<span class="color13">color13 (magenta)</span>
+					<span class="color6">color6 (cyan)</span>
+					<span class="color14">color14 (cyan)</span>
+				</div>
+				<p class="note">The first color in each pair is normal text; the second is bold or bright text.</p>
+			</section>
 
-		<p>
-			Choose colors below, the color names are suggestions. You can
-			pick whatever color you like. But it might end up looking
-			strange if you go way off the color names.
-		</p>
+			<form id="scheme-form">
+				<section class="color-section" aria-labelledby="special-colors-heading">
+					<h2 id="special-colors-heading">Background and foreground</h2>
+					<div class="special-colors">
+						<div class="color-group">
+							<h3>Background</h3>
+							<div class="color-control">
+								<label for="background">Background</label>
+								<span class="color-values">
+									<input type="color" data-color-picker="background" aria-label="Choose background color">
+									<input class="hex-value" id="background" data-color-value="background" type="text" value="#232323" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color, such as #232323" autocomplete="off" spellcheck="false" required>
+								</span>
+							</div>
+						</div>
+						<div class="color-group">
+							<h3>Foreground</h3>
+							<div class="color-control">
+								<label for="foreground">Foreground</label>
+								<span class="color-values">
+									<input type="color" data-color-picker="foreground" aria-label="Choose foreground color">
+									<input class="hex-value" id="foreground" data-color-value="foreground" type="text" value="#ffffec" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color, such as #ffffec" autocomplete="off" spellcheck="false" required>
+								</span>
+							</div>
+						</div>
+					</div>
+				</section>
 
-		<div id="terminal">
-			<span class="foreground">Normal text.</span>
-			<span class="color0">color0 (black)</span>
-			<span class="color8">color8 (black)</span>
-			<span class="color7">color7 (white)</span>
-			<span class="color15">color15 (white)</span>
-			<span class="color1">color1 (red)</span>
-			<span class="color9">color9 (red)</span>
-			<span class="color2">color2 (green)</span>
-			<span class="color10">color10 (green)</span>
-			<span class="color3">color3 (yellow)</span>
-			<span class="color11">color11 (yellow)</span>
-			<span class="color4">color4 (blue)</span>
-			<span class="color12">color12 (blue)</span>
-			<span class="color5">color5 (magenta)</span>
-			<span class="color13">color13 (magenta)</span>
-			<span class="color6">color6 (cyan)</span>
-			<span class="color14">color14 (cyan)</span>
-		</div>
+				<section class="color-section" aria-labelledby="palette-heading">
+					<h2 id="palette-heading">Terminal colors</h2>
+					<div class="palette-grid">
+						<div class="color-group">
+							<h3>Black</h3>
+							<div class="color-control"><label for="color0">Normal (color0)</label><span class="color-values"><input type="color" data-color-picker="color0" aria-label="Choose black normal color"><input class="hex-value" id="color0" data-color-value="color0" type="text" value="#4b4f51" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+							<div class="color-control"><label for="color8">Bright (color8)</label><span class="color-values"><input type="color" data-color-picker="color8" aria-label="Choose black bright color"><input class="hex-value" id="color8" data-color-value="color8" type="text" value="#757575" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+						</div>
+						<div class="color-group">
+							<h3>White</h3>
+							<div class="color-control"><label for="color7">Normal (color7)</label><span class="color-values"><input type="color" data-color-picker="color7" aria-label="Choose white normal color"><input class="hex-value" id="color7" data-color-value="color7" type="text" value="#fafafa" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+							<div class="color-control"><label for="color15">Bright (color15)</label><span class="color-values"><input type="color" data-color-picker="color15" aria-label="Choose white bright color"><input class="hex-value" id="color15" data-color-value="color15" type="text" value="#e0e0e0" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+						</div>
+						<div class="color-group">
+							<h3>Red</h3>
+							<div class="color-control"><label for="color1">Normal (color1)</label><span class="color-values"><input type="color" data-color-picker="color1" aria-label="Choose red normal color"><input class="hex-value" id="color1" data-color-value="color1" type="text" value="#ff5e4e" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+							<div class="color-control"><label for="color9">Bright (color9)</label><span class="color-values"><input type="color" data-color-picker="color9" aria-label="Choose red bright color"><input class="hex-value" id="color9" data-color-value="color9" type="text" value="#ef1a37" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+						</div>
+						<div class="color-group">
+							<h3>Green</h3>
+							<div class="color-control"><label for="color2">Normal (color2)</label><span class="color-values"><input type="color" data-color-picker="color2" aria-label="Choose green normal color"><input class="hex-value" id="color2" data-color-value="color2" type="text" value="#79c487" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+							<div class="color-control"><label for="color10">Bright (color10)</label><span class="color-values"><input type="color" data-color-picker="color10" aria-label="Choose green bright color"><input class="hex-value" id="color10" data-color-value="color10" type="text" value="#8fca0c" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+						</div>
+						<div class="color-group">
+							<h3>Yellow</h3>
+							<div class="color-control"><label for="color3">Normal (color3)</label><span class="color-values"><input type="color" data-color-picker="color3" aria-label="Choose yellow normal color"><input class="hex-value" id="color3" data-color-value="color3" type="text" value="#f4ce18" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+							<div class="color-control"><label for="color11">Bright (color11)</label><span class="color-values"><input type="color" data-color-picker="color11" aria-label="Choose yellow bright color"><input class="hex-value" id="color11" data-color-value="color11" type="text" value="#fa850e" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+						</div>
+						<div class="color-group">
+							<h3>Blue</h3>
+							<div class="color-control"><label for="color4">Normal (color4)</label><span class="color-values"><input type="color" data-color-picker="color4" aria-label="Choose blue normal color"><input class="hex-value" id="color4" data-color-value="color4" type="text" value="#5688ee" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+							<div class="color-control"><label for="color12">Bright (color12)</label><span class="color-values"><input type="color" data-color-picker="color12" aria-label="Choose blue bright color"><input class="hex-value" id="color12" data-color-value="color12" type="text" value="#4348fd" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+						</div>
+						<div class="color-group">
+							<h3>Magenta</h3>
+							<div class="color-control"><label for="color5">Normal (color5)</label><span class="color-values"><input type="color" data-color-picker="color5" aria-label="Choose magenta normal color"><input class="hex-value" id="color5" data-color-value="color5" type="text" value="#a067d6" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+							<div class="color-control"><label for="color13">Bright (color13)</label><span class="color-values"><input type="color" data-color-picker="color13" aria-label="Choose magenta bright color"><input class="hex-value" id="color13" data-color-value="color13" type="text" value="#d36ee8" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+						</div>
+						<div class="color-group">
+							<h3>Cyan</h3>
+							<div class="color-control"><label for="color6">Normal (color6)</label><span class="color-values"><input type="color" data-color-picker="color6" aria-label="Choose cyan normal color"><input class="hex-value" id="color6" data-color-value="color6" type="text" value="#79cad6" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+							<div class="color-control"><label for="color14">Bright (color14)</label><span class="color-values"><input type="color" data-color-picker="color14" aria-label="Choose cyan bright color"><input class="hex-value" id="color14" data-color-value="color14" type="text" value="#44d3ff" pattern="#[0-9a-fA-F]{6}" maxlength="7" title="Enter a six-digit hexadecimal color" autocomplete="off" spellcheck="false" required></span></div>
+						</div>
+					</div>
+				</section>
 
-		<p>
-			The left color is used for normal text while the right color is
-			used for bold (or bright) text.
-		</p>
+				<div class="scheme-controls">
+					<label class="scheme-name" for="schemename">
+						Scheme name
+						<input id="schemename" name="schemename" type="text" value="dark" autocomplete="off">
+					</label>
+					<button id="download" type="button">Download Xresources</button>
+				</div>
+			</form>
 
-		<p class="small">
-			I recommend tabbing through the colors to select them, so that you
-			can focus on the color wheel.
-		</p>
+			<section class="output-section" aria-labelledby="output-heading">
+				<h2 id="output-heading">Xresources output</h2>
+				<p class="note">This text updates as you change the colors and can also be copied directly.</p>
+				<textarea id="output" aria-label="Generated Xresources text" rows="20" readonly spellcheck="false"></textarea>
+			</section>
 
-		<form onsubmit="return false;" action="" method="post">
+			<section class="about" aria-labelledby="about-heading">
+				<h2 id="about-heading">What is this?</h2>
+				<p>
+					If you use a terminal emulator under the <code>X Window System</code>,
+					this site helps you build a color scheme for your terminal.
+				</p>
+				<p>
+					Save the downloaded file as <code>~/.Xdefaults</code>, load it with
+					<code>xrdb -load ~/.Xdefaults</code>, then start your terminal with
+					<code>urxvtc -name dark</code> (replacing <code>dark</code> with your scheme name).
+				</p>
+			</section>
 
-			<p class="color">
-				<span>background</span>
-				<input id="background" class="color" value="#232323"/>
-			</p>
-
-			<p class="color">
-				<span>foreground</span>
-				<input id="foreground" class="color" value="#ffffec"/>
-			</p>
-
-			<div class="clear"></div>
-
-			<p class="color">
-				<span>black</span>
-				<input class="color" id="color0" value="#4b4f51"/>
-				<input class="color" id="color8" value="#757575"/>
-			</p>
-
-			<p class="color">
-				<span>white</span>
-				<input class="color" id="color7" value="#fafafa"/>
-				<input class="color" id="color15" value="#e0e0e0"/>
-			</p>
-
-			<div class="clear"></div>
-
-			<p class="color">
-				<span>red</span>
-				<input class="color" id="color1" value="#ff5e4e"/>
-				<input class="color" id="color9" value="#ef1a37"/>
-			</p>
-
-			<p class="color">
-				<span>green</span>
-				<input class="color" id="color2" value="#79c487"/>
-				<input class="color" id="color10" value="#8fca0c"/>
-			</p>
-
-			<div class="clear"></div>
-
-			<p class="color">
-				<span>yellow</span>
-				<input class="color" id="color3" value="#f4ce18"/>
-				<input class="color" id="color11" value="#fa850e"/>
-			</p>
-
-			<p class="color">
-				<span>blue</span>
-				<input class="color" id="color4" value="#5688ee"/>
-				<input class="color" id="color12" value="#4348fd"/>
-			</p>
-
-			<div class="clear"></div>
-
-			<p class="color">
-				<span>magenta</span>
-				<input class="color" id="color5" value="#a067d6"/>
-				<input class="color" id="color13" value="#d36ee8"/>
-			</p>
-
-			<p class="color">
-				<span>cyan</span>
-				<input class="color" id="color6" value="#79cad6"/>
-				<input class="color" id="color14" value="#44d3ff"/>
-			</p>
-
-			<div class="clear"></div>
-
-			<p>
-				<label style="display: block;" for="schemename">Scheme name</label>
-				<input class="big" id="schemename" value="dark"/>
-				<input class="big" type="submit" value="Update" onclick="builderUpdateColors(); return false;" />
-				<input class="big" type="button" value="Download" onclick="builderUpdateColors(); builderDownloadColors();" />
-			</p>
-
-		</form>
-
-		<div id="picker" style="float: right;"></div>
-
-		<div class="clear"></div>
-
-		<div>
-			<textarea rows="20" cols="60" id="output"></textarea>
-		</div>
-
-		<h2>What is this?</h2>
-
-		<p>
-			If you use a terminal emulator under the <tt>X Window System</tt>
-			this site will help you build a color scheme for the terminal.
-		</p>
-
-		<p>
-			Download the X resource string, and save it in a file
-			(<tt>~/.Xdefaults</tt>). Then load that resource into the
-			resource database (<tt>xrdb -load ~/.Xdefaults</tt>) and start
-			your favorite terminal emulator like so: <code>urxvtc -name weird</code>.
-			(That is if your color scheme is named <em>weird</em>.)
-		</p>
-
-		<p id="footer">
-			Thanks to <a href="http://jquery.com">jQuery</a> and <a
-				href="http://acko.net/dev/farbtastic">Farbtastic</a> for
-			making this easy. Get your clone from <a
-				href="http://github.com/axiom/termscheme">github</a>.
-		</p>
+			<footer>
+				<p>Built by <a href="https://antiklimax.se/me">Johannes Martinsson</a>.
+					Source on <a href="https://github.com/axiom/termscheme">GitHub</a>.</p>
+			</footer>
+		</main>
 	</body>
 </html>
