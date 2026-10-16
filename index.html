@@ -11,7 +11,22 @@
 		<script src="builder.js" defer></script>
 		<style>
 			:root {
-				color-scheme: light;
+				color-scheme: light dark;
+				--page-background: light-dark(#cacaca, #181818);
+				--text-color: light-dark(#555, #d2d2d2);
+				--heading-color: light-dark(#333, #f0f0f0);
+				--group-background: light-dark(#ebebeb, #252525);
+				--border-color: light-dark(#e7e7e7, #444);
+				--subtle-border-color: light-dark(#ddd, #3d3d3d);
+				--input-border: light-dark(#bbb, #666);
+				--input-background: light-dark(#fff, #303030);
+				--input-color: light-dark(#333, #f0f0f0);
+				--button-background: light-dark(#555, #444);
+				--button-hover: light-dark(#333, #606060);
+				--focus-color: light-dark(#1769aa, #75baff);
+				--error-color: light-dark(#b42318, #ff8177);
+				--footer-color: light-dark(#777, #aaa);
+				--link-color: light-dark(#0645ad, #8ab4f8);
 				font-family: system-ui, sans-serif;
 				font-synthesis: none;
 				text-rendering: optimizeLegibility;
@@ -24,8 +39,8 @@
 			body {
 				margin: 0;
 				padding: 2rem 1rem;
-				background: #cacaca;
-				color: #555;
+				background: var(--page-background);
+				color: var(--text-color);
 				font-size: 1rem;
 			}
 
@@ -35,7 +50,7 @@
 			}
 
 			h1, h2 {
-				color: #333;
+				color: var(--heading-color);
 			}
 
 			h1 {
@@ -52,9 +67,9 @@
 			.terminal {
 				margin: 1.5rem 0;
 				padding: 1rem;
-				border: 1px inset #e7e7e7;
+				border: 1px inset var(--border-color);
 				border-radius: 3px;
-				background: #fff;
+				background: var(--input-background);
 				font-family: "Envy Code R", "SFMono-Regular", Consolas, monospace;
 				font-size: 0.9rem;
 				line-height: 1.5;
@@ -90,9 +105,9 @@
 				min-width: 0;
 				margin: 0;
 				padding: 0.75rem;
-				border: 1px solid #e7e7e7;
+				border: 1px solid var(--border-color);
 				border-radius: 4px;
-				background: #ebebeb;
+				background: var(--group-background);
 			}
 
 			.color-group h3 {
@@ -112,7 +127,7 @@
 			}
 
 			.color-control + .color-control {
-				border-top: 1px solid #ddd;
+				border-top: 1px solid var(--subtle-border-color);
 			}
 
 			.color-values {
@@ -125,18 +140,18 @@
 				width: 2.5rem;
 				height: 2rem;
 				padding: 2px;
-				border: 1px solid #bbb;
+				border: 1px solid var(--input-border);
 				border-radius: 3px;
-				background: #fff;
+				background: var(--input-background);
 				cursor: pointer;
 			}
 
 			input[type="text"],
 			textarea {
-				border: 1px solid #bbb;
+				border: 1px solid var(--input-border);
 				border-radius: 3px;
-				background: #fff;
-				color: #333;
+				background: var(--input-background);
+				color: var(--input-color);
 				font: inherit;
 			}
 
@@ -148,8 +163,8 @@
 			}
 
 			input[aria-invalid="true"] {
-				border-color: #b42318;
-				outline-color: #b42318;
+				border-color: var(--error-color);
+				outline-color: var(--error-color);
 			}
 
 			.scheme-controls {
@@ -174,20 +189,20 @@
 			button {
 				min-height: 2.5rem;
 				padding: 0.5rem 0.9rem;
-				border: 1px solid #555;
+				border: 1px solid var(--button-background);
 				border-radius: 3px;
-				background: #555;
+				background: var(--button-background);
 				color: #fff;
 				font: inherit;
 				cursor: pointer;
 			}
 
 			button:hover {
-				background: #333;
+				background: var(--button-hover);
 			}
 
 			:focus-visible {
-				outline: 3px solid #1769aa;
+				outline: 3px solid var(--focus-color);
 				outline-offset: 2px;
 			}
 
@@ -206,10 +221,14 @@
 			footer {
 				margin-top: 3rem;
 				padding: 1rem;
-				border-top: 1px solid #e7e7e7;
-				color: #777;
+				border-top: 1px solid var(--border-color);
+				color: var(--footer-color);
 				font-size: 0.8rem;
 				text-align: center;
+			}
+
+			a {
+				color: var(--link-color);
 			}
 
 			@media (max-width: 560px) {
